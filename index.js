@@ -38,16 +38,17 @@ http.listen(3000, () => {
 	console.log("listening on *:3000");
 });
 
+const state = {
+	evenTick: false,
+};
+
 function printProgress() {
 	process.stdout.clearLine();
 	process.stdout.cursorTo(0);
-	process.stdout.write(`○  ${(new Date() / 1e3) | 0} `);
-
-	setTimeout(() => {
-		process.stdout.clearLine();
-		process.stdout.cursorTo(0);
-		process.stdout.write(`●  ${(new Date() / 1e3) | 0} `);
-	}, 500);
+	process.stdout.write(
+		`${state.evenTick ? "○" : "●"}  ${(new Date() / 1e3) | 0} `
+	);
+	state.evenTick = !state.evenTick;
 }
 
 const getFrame = () =>
@@ -69,7 +70,7 @@ processImage();
 function startStreaming(io) {
 	fs.watchFile(
 		"./stream/image_stream.jpg",
-		{ persistent: false, interval: 100 },
+		{ persistent: false, interval: 1000 },
 		(current, previous) => {
 			if (
 				current.birthtime !== previous.birthtime &&
