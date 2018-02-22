@@ -13,7 +13,8 @@ const cam = new v4l2camera.Camera("/dev/video1"); // /dev/video0 on rpi3
 cam.start();
 
 app.use("/", express.static(path.join(__dirname, "stream")));
-app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
+app.get("/login", (req, res) => res.sendFile(__dirname + "/index.html"));
+app.get("/stream", (req, res) => res.sendFile(__dirname + "/stream.html"));
 
 const sockets = {};
 
