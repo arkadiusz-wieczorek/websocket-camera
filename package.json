@@ -9,6 +9,7 @@
 	"author": "Arkadiusz Wieczorek (https://arkadiusz-wieczorek.pl)",
 	"license": "MIT",
 	"dependencies": {
+		"btoa": "^1.1.2",
 		"express": "^4.16.2",
 		"jimp": "^0.2.28",
 		"socket.io": "^2.0.4",
