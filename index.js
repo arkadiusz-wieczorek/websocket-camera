@@ -35,35 +35,36 @@ io.on("connection", socket => {
 	});
 });
 
-http.listen(3000, () => {
-	console.log("listening on *:3000");
-});
+http.listen(3000, () => console.log("listening on *:3000"));
 
 function printProgress() {
-	process.stdout.clearLine();
-	process.stdout.cursorTo(0);
-	process.stdout.write(
-		`${state.evenTick ? "○" : "●"}  ${(new Date() / 1e3) | 0} `
-	);
-	state.evenTick = !state.evenTick;
+	let currentTimestamp = (new Date() / 1e3) | 0;
+	if (state.timestamp === currentTimestamp) {
+		state.fps += 1;
+	} else {
+		console.log(`${state.timestamp} ${state.fps} FPS`);
+		state.timestamp = currentTimestamp;
+		state.fps = 0;
+	}
 }
 
 const state = {
-	evenTick: false,
-	counter: 0,
+	timestamp: (new Date() / 1e3) | 0,
+	fps: 0,
 };
 
 const getFrame = () =>
 	new Promise(resolve => {
 		setTimeout(() => {
 			cam.capture(() => resolve(cam.frameRaw()));
-		}, 100); // 10 fps
+		}, 100); // max 10 fps
 	});
 
 async function processImage(io) {
 	const uint8ArrayFrame = await getFrame();
-	const b64encoded = btoa(String.fromCharCode.apply(null, uint8ArrayFrame));
-
+	const b64encoded = await btoa(
+		String.fromCharCode.apply(null, uint8ArrayFrame)
+	);
 	io.sockets.emit("liveStream", b64encoded);
 	processImage(io);
 	printProgress();
