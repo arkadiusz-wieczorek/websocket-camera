@@ -29,12 +29,10 @@
 <script>
 	var socket = io();
 	const imageContainer = document.querySelector(".stream");
-	socket.on('liveStream', (base64) => {
+	socket.on('live-stream', (base64) => {
 		imageContainer.setAttribute('src', `data:image/jpg;base64,${base64}`)
 	});
-	function startStream() {
-		socket.emit('start-stream');
-	}
+
 </script>
 
 </html>

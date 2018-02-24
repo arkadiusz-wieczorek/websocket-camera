@@ -1,21 +1,22 @@
-const express = require("express");
+import express from "express";
 const app = express();
 const http = require("http").Server(app);
 
-http.listen(3000, () => console.log("listening on *:3000"));
+http.listen(3000, () => console.log("start server, listening on *:3000"));
 
 const io = require("socket.io")(http, {
 	pingTimeout: 100,
 });
 
+// app.use("/", express.static(path.join(__dirname, "stream")));
+app.get("/login", (req, res) => res.sendFile(__dirname + "/index.html"));
+app.get("/stream", (req, res) => res.sendFile(__dirname + "/stream.html"));
+
 io.on("connection", socket => {
 	console.log("connected:", socket.client.id);
 
-	socket.on("base64-image", function(data) {
-		console.log("new message from client:", data);
+	socket.on("base64-image", base64 => {
+		console.log(base64);
+		io.sockets.emit("live-stream", base64);
 	});
-	// setInterval(function() {
-	// 	socket.emit("clientEvent", Math.random());
-	// 	console.log("message sent to the clients");
-	// }, 3000);
 });

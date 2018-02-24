@@ -17,9 +17,25 @@ function getFrame() {
 	return new Promise(resolve => {
 		setTimeout(() => {
 			cam.capture(() => resolve(cam.frameRaw()));
-		}, 1000); // max 10 fps
+		}, 100); // max 6~9 fps
 	});
 }
+
+function printProgress() {
+	let currentTimestamp = (new Date() / 1e3) | 0;
+	if (state.timestamp === currentTimestamp) {
+		state.fps += 1;
+	} else {
+		console.log(`${state.timestamp} ${state.fps} FPS`);
+		state.timestamp = currentTimestamp;
+		state.fps = 0;
+	}
+}
+
+const state = {
+	timestamp: (new Date() / 1e3) | 0,
+	fps: 0,
+};
 
 async function processImage(socket) {
 	const uint8ArrayFrame = await getFrame();
@@ -28,5 +44,5 @@ async function processImage(socket) {
 	);
 	socket.emit("base64-image", b64encoded);
 	processImage(socket);
-	// printProgress();
+	printProgress();
 }

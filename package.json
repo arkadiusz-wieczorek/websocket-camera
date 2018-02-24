@@ -6,7 +6,9 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"camera":
-			"nodemon camera/index.js --exec babel-node --presets es2015,stage-2"
+			"nodemon camera/index.js --exec babel-node --presets es2015,stage-3",
+		"server":
+			"nodemon server/index.js --exec babel-node --presets es2015,stage-3"
 	},
 	"author": "Arkadiusz Wieczorek (https://arkadiusz-wieczorek.pl)",
 	"license": "MIT",

@@ -41,11 +41,6 @@ function printProgress() {
 	}
 }
 
-const state = {
-	timestamp: (new Date() / 1e3) | 0,
-	fps: 0,
-};
-
 const getFrame = () =>
 	new Promise(resolve => {
 		setTimeout(() => {
