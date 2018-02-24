@@ -9,21 +9,17 @@
 	<!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
 	<style type="text/css">
 		body {
-			display: grid;
-			grid-template-columns: 1fr;
-			/* grid-template-rows: 4rem 4rem 1fr; */
+			margin: 0 auto;
 		}
 
 		.stream {
-			width: 100%;
+			width: 100vw;
 		}
 	</style>
 	<script src="/socket.io/socket.io.js"></script>
 </head>
 
 <body class="container">
-	<h1>Camera test</h1>
-	<button onclick="startStream()">Start Camera</button>
 	<img class="stream" src="">
 </body>
 <script>
