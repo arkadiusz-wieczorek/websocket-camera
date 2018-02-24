@@ -4,7 +4,6 @@ const http = require("http").Server(app);
 const io = require("socket.io")(http, {
 	pingTimeout: 100, // pingInterval: 100,
 });
-const fs = require("fs");
 const path = require("path");
 const btoa = require("btoa");
 
@@ -22,13 +21,7 @@ io.on("connection", socket => {
 	sockets[socket.id] = socket;
 	console.log(`\nClients connected: ${Object.keys(sockets).length}\n`);
 
-	socket.on("disconnect", () => {
-		delete sockets[socket.id];
-		if (Object.keys(sockets).length == 0) {
-			app.set("watchingFile", false);
-			fs.unwatchFile("./stream/image_stream.jpg");
-		}
-	});
+	socket.on("disconnect", () => delete sockets[socket.id]);
 
 	socket.on("start-stream", () => {
 		processImage(io);
