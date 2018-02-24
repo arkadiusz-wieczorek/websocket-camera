@@ -8,7 +8,7 @@ const io = require("socket.io")(http, {
 	pingTimeout: 100,
 });
 
-// app.use("/", express.static(path.join(__dirname, "stream")));
+//
 app.get("/login", (req, res) => res.sendFile(__dirname + "/index.html"));
 app.get("/stream", (req, res) => res.sendFile(__dirname + "/stream.html"));
 
@@ -16,7 +16,6 @@ io.on("connection", socket => {
 	console.log("connected:", socket.client.id);
 
 	socket.on("base64-image", base64 => {
-		console.log(base64);
 		io.sockets.emit("live-stream", base64);
 	});
 });
