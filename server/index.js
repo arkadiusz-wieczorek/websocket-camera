@@ -18,4 +18,7 @@ io.on("connection", socket => {
 	socket.on("base64-image", base64 => {
 		io.sockets.emit("live-stream", base64);
 	});
+	socket.on("base64-image-2", base64 => {
+		io.sockets.emit("live-stream-2", base64);
+	});
 });

@@ -10,10 +10,16 @@
 	<style type="text/css">
 		body {
 			margin: 0 auto;
+			display: inline-flex;
+
 		}
 
 		.stream {
-			width: 100vw;
+			width: 50vw;
+		}
+
+		.stream-2 {
+			width: 50vw;
 		}
 	</style>
 	<script src="/socket.io/socket.io.js"></script>
@@ -21,12 +27,18 @@
 
 <body class="container">
 	<img class="stream" src="">
+	<img class="stream-2" src="">
 </body>
 <script>
 	var socket = io();
+	var socket2 = io();
 	const imageContainer = document.querySelector(".stream");
 	socket.on('live-stream', (base64) => {
 		imageContainer.setAttribute('src', `data:image/jpg;base64,${base64}`)
+	});
+	const imageContainer2 = document.querySelector(".stream-2");
+	socket2.on('live-stream-2', (base64) => {
+		imageContainer2.setAttribute('src', `data:image/jpg;base64,${base64}`)
 	});
 
 </script>
