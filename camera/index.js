@@ -8,6 +8,11 @@ const socket = io.connect("http://localhost:3000/", {
 	reconnection: true,
 });
 
+// const socket = io.connect("https://localhost:3000", {
+// 	secure: true,
+// 	reconnection: true,
+// });
+
 socket.on("connect", function() {
 	console.log("connected to localhost:3000");
 	processImage(socket);

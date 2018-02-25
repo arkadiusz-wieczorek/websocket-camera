@@ -8,7 +8,6 @@ const io = require("socket.io")(http, {
 	pingTimeout: 100,
 });
 
-//
 app.get("/login", (req, res) => res.sendFile(__dirname + "/index.html"));
 app.get("/stream", (req, res) => res.sendFile(__dirname + "/stream.html"));
 
