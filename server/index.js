@@ -25,8 +25,6 @@ const findUserByIdMock = (user, done) => {
 	else done(null, false);
 };
 
-
-
 const io = require("socket.io")(http, {
 	pingTimeout: 100,
 });
@@ -60,7 +58,7 @@ app.get(
 	"/stream",
 	require("connect-ensure-login").ensureLoggedIn(),
 	(req, res) => {
-		res.sendFile(__dirname + "/stream.html"));
+		res.sendFile(__dirname + "/stream.html");
 	}
 );
 

@@ -1,17 +1,13 @@
 import v4l2camera from "v4l2camera";
+import btoa from "btoa";
+import io from "socket.io-client";
 const cam = new v4l2camera.Camera("/dev/video1"); // /dev/video0 on rpi3
 cam.start();
 
-import btoa from "btoa";
-import io from "socket.io-client";
 const socket = io.connect("http://localhost:3000/", {
+	secure: true,
 	reconnection: true,
 });
-
-// const socket = io.connect("https://localhost:3000", {
-// 	secure: true,
-// 	reconnection: true,
-// });
 
 socket.on("connect", function() {
 	console.log("connected to localhost:3000");

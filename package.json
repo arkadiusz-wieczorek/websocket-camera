@@ -5,10 +5,8 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"camera":
-			"nodemon camera/index.js --exec babel-node --presets es2015,stage-3",
-		"server":
-			"nodemon server/index.js --exec babel-node --presets es2015,stage-3"
+		"camera": "nodemon camera/index.js --exec babel-node --presets es2015,stage-3",
+		"server": "nodemon server/index.js --exec babel-node --presets es2015,stage-3"
 	},
 	"author": "Arkadiusz Wieczorek (https://arkadiusz-wieczorek.pl)",
 	"license": "MIT",
@@ -28,10 +26,12 @@
 		"passport-twitter": "^1.0.4"
 	},
 	"devDependencies": {
+		"ajv": "^6.2.0",
 		"babel-cli": "^6.26.0",
 		"babel-preset-env": "^1.6.1",
 		"babel-preset-es2015": "^6.24.1",
 		"babel-preset-stage-2": "^6.24.1",
+		"babel-preset-stage-3": "^6.24.1",
 		"eslint": "^4.18.1",
 		"eslint-config-standard": "^11.0.0",
 		"eslint-plugin-import": "^2.9.0",
