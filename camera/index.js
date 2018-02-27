@@ -10,7 +10,7 @@ const socket = io.connect("http://localhost:3000/", {
 });
 
 socket.on("connect", function() {
-	console.log("connected to localhost:3000");
+	// console.log("connected to localhost:3000");
 	processImage(socket);
 });
 
@@ -27,7 +27,7 @@ function printProgress() {
 	if (state.timestamp === currentTimestamp) {
 		state.fps += 1;
 	} else {
-		console.log(`${state.timestamp} ${state.fps} FPS`);
+		// console.log(`${state.timestamp} ${state.fps} FPS`);
 		state.timestamp = currentTimestamp;
 		state.fps = 0;
 	}
@@ -47,3 +47,9 @@ async function processImage(socket) {
 	processImage(socket);
 	printProgress();
 }
+
+process.on("uncaughtException", function(err) {
+	// console.log("Node NOT Exiting...");
+	// console.error(err);
+});
+// process.exit(0);

@@ -1,12 +1,16 @@
 {
-	"name": "raspberry-camera",
+	"name": "websocket-camera",
 	"version": "0.0.1",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"camera": "nodemon camera/index.js --exec babel-node --presets es2015,stage-3",
-		"server": "nodemon server/index.js --exec babel-node --presets es2015,stage-3"
+		"camera":
+			"nodemon camera/index.js --exec babel-node --presets es2015,stage-3",
+		"camera-prod":
+			"supervisor --harmony --exec babel-node --presets es2015,stage-3 camera/index.js",
+		"server":
+			"nodemon server/index.js --exec babel-node --presets es2015,stage-3",
+		"start": "./serve.sh"
 	},
 	"author": "Arkadiusz Wieczorek (https://arkadiusz-wieczorek.pl)",
 	"license": "MIT",
@@ -38,6 +42,8 @@
 		"eslint-plugin-node": "^6.0.1",
 		"eslint-plugin-promise": "^3.6.0",
 		"eslint-plugin-standard": "^3.0.1",
+		"forever": "^0.15.3",
+		"node-supervisor": "^1.0.2",
 		"nodemon": "^1.15.1",
 		"prettier": "^1.10.2"
 	}
