@@ -47,9 +47,3 @@ async function processImage(socket) {
 	processImage(socket);
 	printProgress();
 }
-
-process.on("uncaughtException", function(err) {
-	// console.log("Node NOT Exiting...");
-	// console.error(err);
-});
-// process.exit(0);
