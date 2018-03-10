@@ -1,17 +1,15 @@
 import v4l2camera from "v4l2camera";
-const cam = new v4l2camera.Camera("/dev/video1"); // /dev/video0 on rpi3
-cam.start();
-
 import btoa from "btoa";
 import io from "socket.io-client";
+import { FileManager } from "./components/file-manager";
+const fileManager = new FileManager();
+const cam = new v4l2camera.Camera("/dev/video0"); // /dev/video0 on rpi3
+cam.start();
+
 const socket = io.connect("http://localhost:3000/", {
+	secure: true,
 	reconnection: true,
 });
-
-// const socket = io.connect("https://localhost:3000", {
-// 	secure: true,
-// 	reconnection: true,
-// });
 
 socket.on("connect", function() {
 	console.log("connected to localhost:3000");
@@ -39,11 +37,23 @@ function printProgress() {
 
 const state = {
 	timestamp: (new Date() / 1e3) | 0,
+	currentMinute: new Date().getMinutes(),
+	firstRun: true,
 	fps: 0,
 };
 
 async function processImage(socket) {
 	const uint8ArrayFrame = await getFrame();
+	state.newCurrentMinute = new Date().getMinutes();
+
+	if (
+		state.firstRun === true ||
+		state.currentMinute !== state.newCurrentMinute
+	) {
+		state.firstRun = false;
+		state.currentMinute = state.newCurrentMinute;
+		await fileManager.saveFile(uint8ArrayFrame);
+	}
 	const b64encoded = await btoa(
 		String.fromCharCode.apply(null, uint8ArrayFrame)
 	);
