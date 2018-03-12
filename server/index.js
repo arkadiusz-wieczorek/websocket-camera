@@ -13,7 +13,7 @@ passport.use(
 			callbackURL:
 				process.env.CALLBACK_URL !== undefined
 					? process.env.CALLBACK_URL
-					: "http://127.0.0.1:3000/login/twitter/return",
+					: "http://localhost:3000/login/twitter/return",
 		},
 		(token, tokenSecret, profile, callback) => callback(null, profile)
 	)
